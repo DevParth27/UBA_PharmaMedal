@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
       title: 'Responsive Login',
       initialRoute: '/',
       routes: {
-        '/home': (context) => HomePage(),
+        '/home': (context) => const HomePage(),
         '/login': (context) => const LoginPage(),
       },
       home: const FirstPage(),
