@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously, avoid_print
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -27,11 +29,24 @@ class _LoginPageState extends State<LoginPage> {
           idToken: googleSignInAuthentication.idToken,
         );
         return await _auth.signInWithCredential(credential);
+      } else {
+        _showSnackBar('Google sign-in canceled.');
       }
     } catch (error) {
-      print(error);
+      print('Google sign-in error: $error');
+      _showSnackBar(
+          'An error occurred during Google sign-in. Please try again.');
     }
     return null;
+  }
+
+  void _showSnackBar(String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(message),
+        duration: const Duration(seconds: 3),
+      ),
+    );
   }
 
   @override
@@ -63,51 +78,28 @@ class _LoginPageState extends State<LoginPage> {
               const Text(
                 "Welcome to MedxPharmacy",
                 style: TextStyle(
-                  fontSize: 22,
+                  fontSize: 20,
                   color: Color.fromARGB(255, 0, 0, 0),
                 ),
               ),
-              const SizedBox(height: 50),
+              const SizedBox(height: 35),
               Column(
                 children: [
                   _buildSocialButton(
                     iconPath: 'images/svgs/google.svg',
                     text: 'Sign in with Google',
                     onPressed: () async {
-                      final userCredential = await _signInWithGoogle();
-                      if (userCredential != null) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text(
-                              'Authentication Successful and Updated!\n User signed in as ${userCredential.user!.displayName}',
-                            ),
-                          ),
-                        );
-                        Navigator.pushNamed(context, '/home');
-                      } else {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text('Sign in failed.'),
-                          ),
-                        );
-                      }
+                      Navigator.pushNamed(context, '/home');
+                      // final userCredential = await _signInWithGoogle();
+                      // if (userCredential != null) {
+                      //   _showSnackBar(
+                      //     'Authentication successful! Signed in as ${userCredential.user!.displayName}',
+                      //   );
+                      //   Navigator.pushNamed(context, '/home');
+                      // }
                     },
                   ),
-                  const SizedBox(height: 20),
-                  _buildSocialButton(
-                    iconPath: 'images/svgs/apple.svg',
-                    text: 'Sign in with Apple',
-                    onPressed: () {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text(
-                            'Sorry! This feature is currently unavailable.',
-                          ),
-                        ),
-                      );
-                    },
-                  ),
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 10),
                   _buildSocialButton(
                     iconPath: 'images/svgs/phone.svg',
                     text: 'Sign in with Phone',
@@ -115,13 +107,14 @@ class _LoginPageState extends State<LoginPage> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const OTPScreen()),
+                          builder: (context) => const OTPScreen(),
+                        ),
                       );
                     },
                   ),
                 ],
               ),
-              const SizedBox(height: 90),
+              const SizedBox(height: 38),
               Card(
                 elevation: 5,
                 shape: RoundedRectangleBorder(
@@ -129,19 +122,31 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 child: const Padding(
                   padding: EdgeInsets.all(16.0),
-                  child: Text(
-                    "Welcome to Pharmacy!\nWe're here to make your healthcare journey smoother and better.",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                    ),
+                  child: Column(
+                    children: [
+                      Text(
+                        "Welcome to Pharmacy! Enhancing your healthcare journey",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      Text(
+                        "फार्मसीमध्ये आपले स्वागत आहे! आम्ही तुमची आरोग्यसेवा आणखी सोपी करत आहोत.",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ),
               const SizedBox(height: 14),
               const Text(
-                '© 2024 Pharmacy. All rights reserved.',
+                '© 2024 UBA. All rights reserved.',
                 style: TextStyle(
                   fontSize: 15,
                   fontWeight: FontWeight.bold,

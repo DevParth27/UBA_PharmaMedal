@@ -68,11 +68,10 @@ class _BottomNavigationBarExampleState
             IconButton(
               icon: const Icon(Icons.logout),
               onPressed: () {
-                 Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const LoginPage()),
-                      );
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const LoginPage()),
+                );
               },
             ),
           ],
@@ -81,9 +80,9 @@ class _BottomNavigationBarExampleState
           child: Container(
             decoration: const BoxDecoration(
               gradient: LinearGradient(
-                colors: [Colors.teal, Colors.tealAccent],
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
+                colors: [Color.fromARGB(255, 9, 104, 95), Colors.tealAccent],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
               ),
             ),
             child: ListView(
@@ -97,20 +96,20 @@ class _BottomNavigationBarExampleState
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       CircleAvatar(
-                        radius: 40,
+                        radius: 30,
                         backgroundImage: AssetImage('images/profile.jpg'),
                       ),
                       SizedBox(height: 2),
                       Text(
-                        'Barnabas Johnson',
+                        'Welcome User!\nवापरकर्त्याचे स्वागत आहे!',
                         style: TextStyle(
                           color: Colors.white,
-                          fontSize: 20,
+                          fontSize: 16,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                       Text(
-                        '#1092',
+                        'ID: 1010',
                         style: TextStyle(
                           color: Colors.white70,
                           fontSize: 16,
@@ -121,7 +120,7 @@ class _BottomNavigationBarExampleState
                 ),
                 ListTile(
                   title: const Text(
-                    'Menu Item 1',
+                    'Home Page / मुख्य पृष्ठ ',
                     style: TextStyle(color: Colors.white),
                   ),
                   onTap: () {
@@ -130,7 +129,25 @@ class _BottomNavigationBarExampleState
                 ),
                 ListTile(
                   title: const Text(
-                    'Menu Item 2',
+                    'View Cart / कार्ट पहा',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  onTap: () {
+                    // Add functionality for menu item 2 here
+                  },
+                ),
+                ListTile(
+                  title: const Text(
+                    'My Profile / माझे प्रोफाइल',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  onTap: () {
+                    // Add functionality for menu item 2 here
+                  },
+                ),
+                ListTile(
+                  title: const Text(
+                    'Logout / बाहेर जायचे असेल',
                     style: TextStyle(color: Colors.white),
                   ),
                   onTap: () {
@@ -197,25 +214,25 @@ class _BottomNavigationBarExampleState
             ],
           ),
         ),
-        bottomNavigationBar: BottomNavigationBar(
-          items: const <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              icon: Icon(Icons.supervised_user_circle_outlined),
-              label: 'Profile',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.local_pharmacy),
-              label: 'Pharmacy',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.monitor_heart),
-              label: 'Patient',
-            ),
-          ],
-          currentIndex: _selectedIndex,
-          selectedItemColor: Colors.amber[800],
-          onTap: _onItemTapped,
-        ),
+        // bottomNavigationBar: BottomNavigationBar(
+        //   items: const <BottomNavigationBarItem>[
+        //     BottomNavigationBarItem(
+        //       icon: Icon(Icons.supervised_user_circle_outlined),
+        //       label: 'Home',
+        //     ),
+        //     BottomNavigationBarItem(
+        //       icon: Icon(Icons.local_pharmacy),
+        //       label: 'Pharmacy',
+        //     ),
+        //     BottomNavigationBarItem(
+        //       icon: Icon(Icons.monitor_heart),
+        //       label: 'Patient',
+        //     ),
+        //   ],
+        //   currentIndex: _selectedIndex,
+        //   selectedItemColor: Colors.amber[800],
+        //   onTap: _onItemTapped,
+        // ),
       ),
     );
   }
