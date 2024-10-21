@@ -151,7 +151,7 @@ class _BottomNavigationBarExampleState
                     style: TextStyle(color: Colors.white),
                   ),
                   onTap: () {
-                    // Add functionality for menu item 2 here
+                    Navigator.pushNamed(context, '/login');
                   },
                 ),
               ],
